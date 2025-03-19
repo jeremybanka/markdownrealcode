@@ -12,5 +12,5 @@ main = do
       let baseDir = takeDirectory inputFile
       contents <- readFile inputFile
       compiled <- compileSuperMarkdown baseDir contents
-      putStrLn compiled
-    _ -> putStrLn "Usage: markdownrealcode <input file>"
+      putStr compiled
+    _ -> putStr "Usage: markdownrealcode <input file>"
