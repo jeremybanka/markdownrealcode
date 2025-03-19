@@ -14,7 +14,8 @@ import Text.Printf (printf)
 
 -- Configuration data type for mdrc.json
 data Config = Config
-  { repo :: String
+  { repo :: String,
+    roots :: [String]
   }
   deriving (Show)
 
@@ -22,6 +23,7 @@ instance FromJSON Config where
   parseJSON = withObject "Config" $ \v ->
     Config
       <$> v .: "repo"
+      <*> v .: "roots"
 
 -- Convert Super Markdown to Markdown
 compileSuperMarkdown :: Config -> FilePath -> String -> IO String

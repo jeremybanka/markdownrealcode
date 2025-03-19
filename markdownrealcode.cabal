@@ -26,6 +26,8 @@ executable mdrc-cli
                   , optparse-applicative
                   , filepath
                   , aeson == 2.2.3.0
+                  , async == 2.2.5
+                  , filemanip == 0.3.6.3
 
 test-suite mdrc-tests
   import:           defaults

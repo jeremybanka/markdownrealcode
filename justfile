@@ -25,4 +25,4 @@ clean:
     cabal clean
 
 try:
-    cabal run mdrc-cli -- eg/README.smd > eg/README.md
+    cabal run mdrc-cli
