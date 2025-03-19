@@ -1,7 +1,7 @@
 module Main where
 
 import Data.Aeson (eitherDecodeFileStrict)
-import MarkdownRealCode (Config, compileSuperMarkdown)
+import MarkdownRealCode (compileSuperMarkdown)
 import System.Environment (getArgs)
 import System.FilePath (takeDirectory, (</>))
 
