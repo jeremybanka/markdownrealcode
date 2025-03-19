@@ -5,12 +5,17 @@
 		"editor.defaultFormatter": "haskell.haskell",
 		"editor.formatOnSave": true
 	},
-	"vscode-just.formatOnSave": true
-	// "[just]": {
-	// 	"editor.defaultFormatter": "nefrob.vscode-just-syntax"
-	// },
-	// "editor.formatOnSaveMode": "file",
-	// "editor.codeActionsOnSave": {
-	// 	"vscode-just.formatDocument": "explicit"
-	// }
+	"vscode-just.formatOnSave": true,
+	"cSpell.words": [
+		"aeson",
+		"exitcode",
+		"ghcid",
+		"hlint",
+		"hspec",
+		"markdownrealcode",
+		"mdrc",
+		"optparse",
+		"uncons",
+		"unlines"
+	]
 }
