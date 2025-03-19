@@ -3,8 +3,8 @@ module MarkdownRealCode where
 -- Explicitly specify package
 
 import Data.Function ((&))
-import Data.List (uncons)
-import System.FilePath (takeExtension)
+import Data.List (isPrefixOf, uncons)
+import System.FilePath (pathSeparator, takeExtension, (</>))
 import Text.Printf (printf)
 
 -- Global constant for the repository prefix
@@ -12,21 +12,23 @@ repo :: String
 repo = "https://github.com/your-username/your-project/tree/main/"
 
 -- Convert Super Markdown to Markdown
-compileSuperMarkdown :: String -> IO String
-compileSuperMarkdown input = do
+compileSuperMarkdown :: FilePath -> String -> IO String
+compileSuperMarkdown baseDir input = do
   let lines' = lines input
-  compiledLines <- mapM processLine lines'
+  compiledLines <- mapM (processLine baseDir) lines'
   return $ unlines compiledLines
 
 -- Process a single line, replacing [>src:/path] with link + code block
-processLine :: String -> IO String
-processLine line =
+processLine :: FilePath -> String -> IO String
+processLine baseDir line =
   case extractSourcePath line of
     Nothing -> return line
-    Just path -> do
-      contents <- readFile path -- Read the file contents
-      let link = makeLink path
-      let codeBlock = makeCodeBlock path contents
+    Just relativePath -> do
+      let fullPath = baseDir </> relativePath
+      let urlPath = toUrlPath (removeLeadingDotSlash fullPath)
+      contents <- readFile fullPath
+      let link = makeLink relativePath urlPath
+      let codeBlock = makeCodeBlock fullPath contents
       return $ link ++ "\n\n" ++ codeBlock
 
 -- Extract the path from a [>src:/path] reference
@@ -50,8 +52,8 @@ splitOn delim str =
         (before, after) -> before : splitOn delim (drop (length delim) after)
 
 -- Generate the markdown link: [path](repo/path)
-makeLink :: String -> String
-makeLink path = printf "[%s](%s%s)" path repo path
+makeLink :: String -> String -> String
+makeLink linkText urlPath = printf "[%s](%s%s)" linkText repo urlPath
 
 -- Generate the code block with language inferred from extension
 makeCodeBlock :: FilePath -> String -> String
@@ -62,3 +64,12 @@ makeCodeBlock path contents =
 -- Infer the language from the file extension
 inferLanguage :: FilePath -> String
 inferLanguage path = path & takeExtension & drop 1
+
+removeLeadingDotSlash :: FilePath -> FilePath
+removeLeadingDotSlash path =
+  if "./" `isPrefixOf` path
+    then drop 2 path
+    else path
+
+toUrlPath :: FilePath -> String
+toUrlPath = map (\c -> if c == pathSeparator then '/' else c)
