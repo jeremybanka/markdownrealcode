@@ -7,7 +7,6 @@ main :: IO ()
 main = hspec $ do
   describe "compileSuperMarkdown" $ do
     it "compiles a source reference to a link and code block" $ do
-      -- let input = "See this example:\n[>src:eg/auth.ts]\nIt works great."
       result <-
         compileSuperMarkdown "." $
           unlines
