@@ -3,17 +3,18 @@ module Main where
 import MarkdownRealCode (compileSuperMarkdown)
 import Test.Hspec (describe, hspec, it, shouldBe)
 
--- Mock file reading for testing
-mockReadFile :: String -> IO String
-mockReadFile "eg/auth.ts" = return "export function auth() {\n  return true;\n}"
-mockReadFile _ = return "unknown file"
-
 main :: IO ()
 main = hspec $ do
   describe "compileSuperMarkdown" $ do
     it "compiles a source reference to a link and code block" $ do
-      let input = "See this example:\n[>src:eg/auth.ts]\nIt works great."
-      result <- compileSuperMarkdown input
+      -- let input = "See this example:\n[>src:eg/auth.ts]\nIt works great."
+      result <-
+        compileSuperMarkdown $
+          unlines
+            [ "See this example:",
+              "[>src:eg/auth.ts]",
+              "It works great."
+            ]
       result
         `shouldBe` unlines
           [ "See this example:",
@@ -21,8 +22,8 @@ main = hspec $ do
             "",
             "```ts",
             "export function auth() {",
-            "  return true;",
-            "}",
+            "\treturn true;",
+            "}\n",
             "```",
             "It works great."
           ]
