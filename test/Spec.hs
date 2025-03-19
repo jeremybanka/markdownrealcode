@@ -1,14 +1,15 @@
 module Spec where
 
-import MarkdownRealCode (compileSuperMarkdown)
+import MarkdownRealCode (Config (..), compileSuperMarkdown)
 import Test.Hspec (describe, hspec, it, shouldBe)
 
 main :: IO ()
 main = hspec $ do
   describe "compileSuperMarkdown" $ do
     it "compiles a source reference to a link and code block" $ do
+      let config = Config {repo = "https://github.com/your-username/your-project/tree/main/"}
       result <-
-        compileSuperMarkdown "." $
+        compileSuperMarkdown config "." $
           unlines
             [ "See this example:",
               "[>src:eg/auth.ts]",
