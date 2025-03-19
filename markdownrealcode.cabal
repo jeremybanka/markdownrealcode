@@ -25,6 +25,7 @@ executable mdrc-cli
   main-is:          Main.hs
   build-depends:    markdownrealcode
                   , optparse-applicative
+                  , filepath
 
 test-suite mdrc-tests
   import:           defaults

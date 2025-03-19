@@ -9,7 +9,7 @@ main = hspec $ do
     it "compiles a source reference to a link and code block" $ do
       -- let input = "See this example:\n[>src:eg/auth.ts]\nIt works great."
       result <-
-        compileSuperMarkdown $
+        compileSuperMarkdown "." $
           unlines
             [ "See this example:",
               "[>src:eg/auth.ts]",
