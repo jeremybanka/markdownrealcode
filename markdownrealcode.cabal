@@ -1,0 +1,36 @@
+cabal-version:      3.0
+name:               markdownrealcode
+version:            0.1.0.0
+license:            BSD-3-Clause
+author:             Jeremy Banka
+synopsis:           Include real source code in your markdown files.
+
+common defaults
+  ghc-options:      -Wall
+  build-depends:    base >= 4.12 && < 5
+  default-language: Haskell2010
+
+library
+  import:           defaults
+  hs-source-dirs:   src
+  exposed-modules:  MarkdownRealCode
+  build-depends:    base ^>=4.20.0.0
+                  , filepath
+  
+--   other-modules:    MyLib.Core
+
+executable mdrc-cli
+  import:           defaults
+  hs-source-dirs:   app
+  main-is:          Main.hs
+  build-depends:    markdownrealcode
+                  , optparse-applicative
+
+test-suite mdrc-tests
+  import:           defaults
+  type:             exitcode-stdio-1.0
+  hs-source-dirs:   test
+  main-is:          Spec.hs
+  build-depends:    markdownrealcode
+                  , hspec
+  build-tool-depends: hspec-discover:hspec-discover

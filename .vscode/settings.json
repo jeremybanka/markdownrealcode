@@ -1,0 +1,16 @@
+{
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+	"[haskell][cabal]": {
+		"editor.defaultFormatter": "haskell.haskell",
+		"editor.formatOnSave": true
+	},
+	"vscode-just.formatOnSave": true
+	// "[just]": {
+	// 	"editor.defaultFormatter": "nefrob.vscode-just-syntax"
+	// },
+	// "editor.formatOnSaveMode": "file",
+	// "editor.codeActionsOnSave": {
+	// 	"vscode-just.formatDocument": "explicit"
+	// }
+}
