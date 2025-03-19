@@ -1,7 +1,10 @@
 module MarkdownRealCode where
 
+-- Explicitly specify package
+
+import Data.Function ((&))
 import Data.List (uncons)
-import System.FilePath (takeExtension) -- Explicitly specify package
+import System.FilePath (takeExtension)
 import Text.Printf (printf)
 
 -- Global constant for the repository prefix
@@ -51,17 +54,11 @@ makeLink :: String -> String
 makeLink path = printf "[%s](%s%s)" path repo path
 
 -- Generate the code block with language inferred from extension
-makeCodeBlock :: String -> String -> String
+makeCodeBlock :: FilePath -> String -> String
 makeCodeBlock path contents =
   let lang = inferLanguage path
    in printf "```%s\n%s\n```" lang contents
 
 -- Infer the language from the file extension
-inferLanguage :: String -> String
-inferLanguage path =
-  case takeExtension path of
-    ".ts" -> "ts"
-    ".hs" -> "haskell"
-    ".py" -> "python"
-    ".js" -> "javascript"
-    ext -> drop 1 ext -- Default to extension without dot
+inferLanguage :: FilePath -> String
+inferLanguage path = path & takeExtension & drop 1
