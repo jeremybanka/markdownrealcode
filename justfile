@@ -1,5 +1,3 @@
-# Justfile for Haskell project automation
-
 # Run tests in watch mode using ghcid
 test:
     ghcid --command="cabal repl test:mdrc-tests" --test="main"
@@ -25,4 +23,4 @@ clean:
     cabal clean
 
 try:
-    cabal run mdrc-cli -- eg/README.smd > eg/README.md
+    cabal run mdrc-cli

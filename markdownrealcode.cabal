@@ -16,8 +16,7 @@ library
   exposed-modules:  MarkdownRealCode
   build-depends:    base ^>=4.20.0.0
                   , filepath
-  
---   other-modules:    MyLib.Core
+                  , aeson == 2.2.3.0
 
 executable mdrc-cli
   import:           defaults
@@ -25,7 +24,11 @@ executable mdrc-cli
   main-is:          Main.hs
   build-depends:    markdownrealcode
                   , optparse-applicative
+                  , directory
                   , filepath
+                  , aeson == 2.2.3.0
+                  , async == 2.2.5
+                  , filemanip == 0.3.6.3
 
 test-suite mdrc-tests
   import:           defaults
