@@ -17,5 +17,14 @@
 		"optparse",
 		"uncons",
 		"unlines"
-	]
+	],
+	"markdownlint.config": {
+		"MD010": {
+			"code_blocks": false
+		}
+	},
+	"explorer.fileNesting.patterns": {
+		"*.src.md": "${capture}.gen.md",
+		"repomix.config.json": "repomix-output.xml, .repomixignore"
+	}
 }
