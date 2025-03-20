@@ -1,4 +1,4 @@
-module Spec where
+module Main where
 
 import MarkdownRealCode (Config (..), compileSuperMarkdown)
 import Test.Hspec (describe, hspec, it, shouldBe)
