@@ -29,6 +29,7 @@ executable mdrc-cli
                   , aeson == 2.2.3.0
                   , async == 2.2.5
                   , filemanip == 0.3.6.3
+                  , fsnotify == 0.4.1.0
 
 test-suite mdrc-tests
   import:           defaults
