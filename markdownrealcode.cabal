@@ -24,6 +24,7 @@ executable mdrc-cli
   main-is:          Main.hs
   build-depends:    markdownrealcode
                   , optparse-applicative
+                  , directory
                   , filepath
                   , aeson == 2.2.3.0
                   , async == 2.2.5

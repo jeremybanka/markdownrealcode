@@ -7,7 +7,11 @@ main :: IO ()
 main = hspec $ do
   describe "compileSuperMarkdown" $ do
     it "compiles a source reference to a link and code block" $ do
-      let config = Config {repo = "https://github.com/your-username/your-project/tree/main/"}
+      let config =
+            Config
+              { repo = "https://github.com/your-username/your-project/tree/main/",
+                roots = ["eg"]
+              }
       result <-
         compileSuperMarkdown config "." $
           unlines
