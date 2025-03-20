@@ -10,10 +10,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   Test:
     runs-on: ubuntu-latest
@@ -23,5 +19,12 @@ jobs:
         with:
           ghc-version: "9.10.1"
           cabal-version: "3.12.1.0"
-      - run: cabal build
-      - run: cabal test
+      - name: cache ~/.cabal
+        uses: actions/cache@v3
+        with:
+          path: ~/.cabal
+          key: ${{ runner.os }}-cabal-${{ hashFiles('**/*.cabal', 'cabal.project') }}
+          restore-keys: ${{ runner.os }}-cabal-
+      - run: cabal update
+      - run: cabal build -j2
+      - run: cabal test -j2
