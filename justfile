@@ -1,6 +1,6 @@
 # Run tests in watch mode using ghcid
 test:
-    ghcid --command="cabal repl test:mdrc-tests" --test="main"
+    ghcid markdownrealcode.cabal -c "cabal repl test:mdrc-tests" --test="Main.main"
 
 # Build the project
 build:
