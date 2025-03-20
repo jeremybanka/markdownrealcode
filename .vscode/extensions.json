@@ -1,7 +1,9 @@
 {
-  "recommendations": [
-    "nefrob.vscode-just-syntax",
-    "haskell.haskell",
-    "justusadam.language-haskell"
-  ]
+	"recommendations": [
+		"davidanson.vscode-markdownlint",
+		"haskell.haskell",
+		"justusadam.language-haskell",
+		"nefrob.vscode-just-syntax",
+		"streetsidesoftware.code-spell-checker"
+	]
 }
