@@ -9,6 +9,8 @@
 	"cSpell.words": [
 		"aeson",
 		"exitcode",
+		"filemanip",
+		"fsnotify",
 		"ghcid",
 		"hlint",
 		"hspec",
