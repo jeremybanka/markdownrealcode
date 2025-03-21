@@ -39,6 +39,8 @@ executable mdrc-lsp
   build-depends:    markdownrealcode
                   , lsp == 2.7.0.1
                   , lsp-types == 2.3.0.1
+                  , lens == 5.3.4
+                  , transformers
                   , directory
                   , filepath
                   , text
