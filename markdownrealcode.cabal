@@ -31,6 +31,18 @@ executable mdrc-cli
                   , filemanip == 0.3.6.3
                   , fsnotify == 0.4.1.0
 
+executable mdrc-lsp
+  import:           defaults
+  hs-source-dirs:   lsp
+  main-is:          Main.hs
+  other-modules:    LSPServer
+  build-depends:    markdownrealcode
+                  , lsp == 2.7.0.1
+                  , lsp-types == 2.3.0.1
+                  , directory
+                  , filepath
+                  , text
+
 test-suite mdrc-tests
   import:           defaults
   type:             exitcode-stdio-1.0
