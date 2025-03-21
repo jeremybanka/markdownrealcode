@@ -24,3 +24,6 @@ clean:
 
 try:
     cabal run mdrc-cli
+
+watch:
+    cabal run mdrc-cli -- -w
