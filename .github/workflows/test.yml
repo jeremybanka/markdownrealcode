@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cabal
-          key: ${{ runner.os }}-cabal-${{ hashFiles('**/*.cabal', 'cabal.project') }}
+          key: ${{ runner.os }}-cabal-${{ hashFiles('markdownrealcode.cabal') }}
           restore-keys: ${{ runner.os }}-cabal-
       - run: cabal update
       - run: cabal build -j2
