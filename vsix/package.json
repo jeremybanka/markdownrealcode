@@ -1,0 +1,37 @@
+{
+	"name": "@markdownrealcode/vsix",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"displayName": "Markdown Real Code",
+	"description": "Support for .src.md files with source code references",
+	"categories": ["Programming Languages"],
+	"activationEvents": ["onLanguage:markdown"],
+	"contributes": {
+		"languages": [
+			{
+				"id": "markdownrealcode",
+				"aliases": ["Markdown Real Code"],
+				"extensions": [".src.md"]
+			}
+		]
+	},
+
+	"main": "./dist/extension.js",
+
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc",
+		"watch": "tsc -watch"
+	},
+
+	"engines": {
+		"vscode": "1.98.0"
+	},
+	"devDependencies": {
+		"@types/vscode": "1.98.0",
+		"@types/node": "22.13.11",
+		"typescript": "5.8.2",
+		"vscode-languageclient": "9.0.1"
+	}
+}
