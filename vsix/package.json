@@ -24,7 +24,11 @@
 	"scripts": {
 		"vscode:prepublish": "bun compile",
 		"compile": "bun build extension.ts --outdir dist",
-		"watch": "bun build --watch extension.ts --outdir dist"
+		"dev": "bun build --watch extension.ts --outdir dist",
+		"fmt": "biome format .",
+		"fmt:fix": "biome format --write .",
+		"lint": "biome check .",
+		"lint:fix": "biome check --fix ."
 	},
 
 	"devDependencies": {
