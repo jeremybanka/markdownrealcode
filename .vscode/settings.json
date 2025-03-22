@@ -2,8 +2,12 @@
 	"editor.defaultFormatter": "biomejs.biome",
 	"editor.formatOnSave": true,
 	"[haskell][cabal]": {
-		"editor.defaultFormatter": "haskell.haskell",
-		"editor.formatOnSave": true
+		"editor.defaultFormatter": "haskell.haskell"
+	},
+	"[json][jsonc][typescript]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports.biome": "always"
+		}
 	},
 	"vscode-just.formatOnSave": true,
 	"cSpell.words": [
