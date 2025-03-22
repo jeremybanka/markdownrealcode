@@ -2,6 +2,7 @@
 
 module MarkdownRealCode
   ( compileSuperMarkdown,
+    extractSourcePath,
     Config (..),
   )
 where
