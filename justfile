@@ -27,3 +27,6 @@ try:
 
 watch:
     cabal run mdrc-cli -- -w
+
+vsix:
+    ./vsix/build.bun.ts

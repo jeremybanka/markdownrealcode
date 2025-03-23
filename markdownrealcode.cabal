@@ -12,7 +12,7 @@ common defaults
 
 library
   import:           defaults
-  hs-source-dirs:   src
+  hs-source-dirs:   lib
   exposed-modules:  MarkdownRealCode
   build-depends:    base ^>=4.20.0.0
                   , filepath

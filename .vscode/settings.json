@@ -9,6 +9,9 @@
 			"source.organizeImports.biome": "always"
 		}
 	},
+	"[markdown]": {
+		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+	},
 	"vscode-just.formatOnSave": true,
 	"cSpell.words": [
 		"aeson",
@@ -32,5 +35,9 @@
 	"explorer.fileNesting.patterns": {
 		"*.src.md": "${capture}.gen.md",
 		"repomix.config.json": "repomix-output.xml, .repomixignore"
-	}
+	},
+	"[markdownrealcode]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"markdown.validate.enabled": false
 }

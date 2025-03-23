@@ -1,5 +1,5 @@
 {
-	"name": "@markdownrealcode/vsix",
+	"name": "markdownrealcode",
 	"version": "0.1.0",
 	"private": true,
 	"displayName": "Markdown Real Code",
@@ -7,9 +7,13 @@
 	"categories": ["Programming Languages"],
 
 	"main": "./dist/extension.js",
-	"type": "module",
 
-	"engines": { "vscode": "1.98.0" },
+	"engines": { "vscode": "^1.98.0" },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jeremybanka/markdownrealcode"
+	},
+	"publisher": "jeremybanka",
 	"activationEvents": ["onLanguage:markdown"],
 	"contributes": {
 		"languages": [
@@ -22,9 +26,6 @@
 	},
 
 	"scripts": {
-		"vscode:prepublish": "bun compile",
-		"compile": "bun build extension.ts --outdir dist",
-		"dev": "bun build --watch extension.ts --outdir dist",
 		"fmt": "biome format .",
 		"fmt:fix": "biome format --write .",
 		"lint": "biome check .",
