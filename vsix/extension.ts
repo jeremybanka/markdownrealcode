@@ -6,6 +6,7 @@ import {
 	type ServerOptions,
 	TransportKind,
 } from "vscode-languageclient/node"
+import * as fs from "node:fs"
 
 let client: LanguageClient
 
@@ -27,6 +28,12 @@ export function activate(context: ExtensionContext) {
 	}
 
 	const serverCommand = context.asAbsolutePath(path.join("bin", binaryName))
+	console.log("Starting LSP server with command:", serverCommand)
+
+	if (!fs.existsSync(serverCommand)) {
+		console.error("LSP binary not found at:", serverCommand)
+	}
+
 	const serverOptions: ServerOptions = {
 		command: serverCommand,
 		args: [],
@@ -47,7 +54,9 @@ export function activate(context: ExtensionContext) {
 		clientOptions,
 	)
 
-	client.start()
+	client.start().catch((error) => {
+		console.error("Failed to start LSP client:", error)
+	})
 }
 
 export function deactivate(): Thenable<void> | undefined {

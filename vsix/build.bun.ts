@@ -6,6 +6,7 @@ import { platform, arch } from "node:os"
 import { join } from "node:path"
 
 const currentPlatform = platform()
+const currentArch = arch()
 
 await Promise.all([
 	Bun.build({
@@ -18,11 +19,11 @@ await Promise.all([
 		target: `node`,
 		external: ["vscode"],
 	}),
-	Bun.$`cabal build -O2 mdrc-lsp`.then((result) => {
-		console.log(result.stdout)
-		Bun.$`cp $(cabal list-bin mdrc-lsp) vsix/bin/mdrc-lsp-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m)`
+	Bun.$`cabal build -O2 mdrc-lsp`.then(async (result) => {
+		const mdrcLspPath = (await Bun.$`cabal list-bin mdrc-lsp`).text().trim()
+		return Bun.$`cp ${mdrcLspPath} vsix/bin/mdrc-lsp-${currentPlatform}-${currentArch}`
 	}),
-])
+] as const)
 
 // Step 2: Determine the platform-specific LSP binary
 const platformMap: Record<string, Record<string, string>> = {
@@ -31,7 +32,6 @@ const platformMap: Record<string, Record<string, string>> = {
 	darwin: { x64: "mdrc-lsp-darwin-x64", arm64: "mdrc-lsp-darwin-arm64" },
 }
 
-const currentArch = arch()
 const binaryName = platformMap[currentPlatform]?.[currentArch]
 if (!binaryName) {
 	throw new Error(
