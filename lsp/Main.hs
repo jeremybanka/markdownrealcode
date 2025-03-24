@@ -1,3 +1,4 @@
+{-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE ExplicitNamespaces #-}
@@ -24,13 +25,22 @@ import Language.LSP.Protocol.Lens
 import Language.LSP.Protocol.Message
   ( Method
       ( Method_TextDocumentDidChange,
-        Method_TextDocumentDidOpen
+        Method_TextDocumentDidOpen,
+        Method_WorkspaceDidChangeConfiguration
       ),
-    SMethod (..),
+    SMethod
+      ( SMethod_TextDocumentDidChange,
+        SMethod_TextDocumentDidOpen,
+        SMethod_TextDocumentPublishDiagnostics,
+        SMethod_WindowLogMessage,
+        SMethod_WorkspaceDidChangeConfiguration
+      ),
   )
 import Language.LSP.Protocol.Types
   ( Diagnostic (..),
     DiagnosticSeverity (DiagnosticSeverity_Error),
+    LogMessageParams (LogMessageParams),
+    MessageType (MessageType_Info),
     Position (Position),
     PublishDiagnosticsParams (PublishDiagnosticsParams),
     Range (Range),
@@ -78,12 +88,41 @@ handlers :: Handlers (LspM ())
 handlers =
   mconcat
     [ notificationHandler SMethod_TextDocumentDidOpen didOpenHandler,
-      notificationHandler SMethod_TextDocumentDidChange didChangeHandler
+      notificationHandler SMethod_TextDocumentDidChange didChangeHandler,
+      notificationHandler SMethod_WorkspaceDidChangeConfiguration workspaceDidChangeConfigurationHandler
     ]
+
+-- -- | Handle 'initialized' notification
+-- initializedHandler :: Handler (LspM ()) Method_Initialized
+-- initializedHandler = \_not -> do
+--   let parameters =
+--         ShowMessageRequestParams
+--           MessageType_Info
+--           "Turn on code lenses?"
+--           (Just [MessageActionItem "Turn on", MessageActionItem "Don't"])
+--   _ <- sendRequest SMethod_WindowShowMessageRequest parameters $ \case
+--     Right (InL (MessageActionItem "Turn on")) -> do
+--       let regOpts = CodeLensRegistrationOptions (InR Null) Nothing (Just False)
+
+--       _ <- registerCapability mempty SMethod_TextDocumentCodeLens regOpts $ \_req responder -> do
+--         let cmd = Command "Say hello" "lsp-hello-command" Nothing
+--             rsp = [CodeLens (mkRange 0 0 0 100) (Just cmd) Nothing]
+--         responder $ Right $ InL rsp
+--       pure ()
+--     Right _ ->
+--       sendNotification SMethod_WindowShowMessage (ShowMessageParams MessageType_Info "Not turning on code lenses")
+--     Left err ->
+--       sendNotification SMethod_WindowShowMessage (ShowMessageParams MessageType_Error $ "Something went wrong!\n" <> T.pack (show err))
+--   pure ()
+
+-- | Handle 'workspace/didChangeConfiguration' notification
+workspaceDidChangeConfigurationHandler :: Handler (LspM ()) Method_WorkspaceDidChangeConfiguration
+workspaceDidChangeConfigurationHandler = \_ -> return ()
 
 -- | Handle 'didOpen' notification
 didOpenHandler :: Handler (LspM ()) Method_TextDocumentDidOpen
 didOpenHandler msg = do
+  sendNotification SMethod_WindowLogMessage (LogMessageParams MessageType_Info "Received didOpen")
   let doc = msg ^. params . textDocument
       docUri = doc ^. uri
       content = doc ^. text

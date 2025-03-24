@@ -1,0 +1,43 @@
+{
+	"name": "markdownrealcode",
+	"version": "0.1.0",
+	"private": true,
+	"displayName": "Markdown Real Code",
+	"description": "Support for .src.md files with source code references",
+	"categories": ["Programming Languages"],
+
+	"main": "./extension.js",
+
+	"engines": { "vscode": "^1.98.0" },
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/jeremybanka/markdownrealcode"
+	},
+	"publisher": "jeremybanka",
+	"activationEvents": ["onLanguage:markdownrealcode"],
+	"contributes": {
+		"languages": [
+			{
+				"id": "markdownrealcode",
+				"aliases": ["Markdown Real Code"],
+				"extensions": [".src.md"]
+			}
+		]
+	},
+
+	"scripts": {
+		"fmt": "biome format .",
+		"fmt:fix": "biome format --write .",
+		"lint": "biome check .",
+		"lint:fix": "biome check --fix ."
+	},
+
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/vscode": "1.98.0",
+		"@types/node": "22.13.11",
+		"@vscode/vsce": "3.3.0",
+		"typescript": "5.8.2",
+		"vscode-languageclient": "9.0.1"
+	}
+}
