@@ -30,3 +30,10 @@ watch:
 
 vsix:
     ./vsix/build.bun.ts
+
+install:
+    just build
+    cp $(cabal list-bin mdrc-cli) ~/.local/bin/markdownrealcode
+
+uninstall:
+    rm ~/.local/bin/markdownrealcode
