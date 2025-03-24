@@ -1,64 +1,61 @@
+import * as vscode from "vscode"
 import * as path from "node:path"
-import { workspace, type ExtensionContext } from "vscode"
-import {
-	LanguageClient,
-	type LanguageClientOptions,
-	type ServerOptions,
-	TransportKind,
-} from "vscode-languageclient/node"
 import * as fs from "node:fs"
 
-let client: LanguageClient
+export function activate(context: vscode.ExtensionContext) {
+	const diagnosticCollection =
+		vscode.languages.createDiagnosticCollection("markdownrealcode")
+	context.subscriptions.push(diagnosticCollection)
 
-export function activate(context: ExtensionContext) {
-	const platform = process.platform
-	const arch = process.arch
+	const validatePaths = (doc: vscode.TextDocument) => {
+		if (!doc.fileName.endsWith(".src.md")) {
+			return
+		}
 
-	let binaryName: string
-	if (platform === "win32" && arch === "x64") {
-		binaryName = "mdrc-lsp-windows.exe"
-	} else if (platform === "linux" && arch === "x64") {
-		binaryName = "mdrc-lsp-linux"
-	} else if (platform === "darwin" && arch === "x64") {
-		binaryName = "mdrc-lsp-darwin-x64"
-	} else if (platform === "darwin" && arch === "arm64") {
-		binaryName = "mdrc-lsp-darwin-arm64"
-	} else {
-		throw new Error(`Unsupported platform: ${platform}-${arch}`)
+		const content = doc.getText()
+		const regex = /\[>src:([^\]]+)\]/g // Match [>src:FILEPATH]
+		const diagnostics: vscode.Diagnostic[] = []
+		const match = regex.exec(content)
+
+		if (match !== null) {
+			const filepath = match[1] // Extract FILEPATH from the capture group
+			if (filepath) {
+				const start = doc.positionAt(match.index + 6) // Start after "[>src:"
+				const end = doc.positionAt(match.index + 6 + filepath.length) // End before "]"
+				const range = new vscode.Range(start, end)
+
+				const currentDir = path.dirname(doc.uri.fsPath)
+				const absolutePath = path.join(currentDir, filepath)
+
+				if (
+					!fs.existsSync(absolutePath) ||
+					!fs.statSync(absolutePath).isFile()
+				) {
+					diagnostics.push(
+						new vscode.Diagnostic(
+							range,
+							`Invalid file path: ${filepath}`,
+							vscode.DiagnosticSeverity.Error,
+						),
+					)
+				}
+			}
+
+			diagnosticCollection.set(doc.uri, diagnostics)
+		}
 	}
 
-	const serverCommand = context.asAbsolutePath(path.join("bin", binaryName))
-	console.log("Starting LSP server with command:", serverCommand)
-
-	if (!fs.existsSync(serverCommand)) {
-		console.error("LSP binary not found at:", serverCommand)
-	}
-
-	const serverOptions: ServerOptions = {
-		command: serverCommand,
-		args: [],
-		transport: TransportKind.stdio,
-	}
-
-	const clientOptions: LanguageClientOptions = {
-		documentSelector: [{ scheme: "file", language: "markdownrealcode" }],
-		synchronize: {
-			fileEvents: workspace.createFileSystemWatcher("**/*.src.md"),
-		},
-	}
-
-	client = new LanguageClient(
-		"markdownRealCodeLsp",
-		"Markdown Real Code LSP",
-		serverOptions,
-		clientOptions,
+	context.subscriptions.push(
+		vscode.workspace.onDidChangeTextDocument((event) => {
+			validatePaths(event.document)
+		}),
 	)
 
-	client.start().catch((error) => {
-		console.error("Failed to start LSP client:", error)
-	})
-}
+	context.subscriptions.push(
+		vscode.workspace.onDidOpenTextDocument((doc) => {
+			validatePaths(doc)
+		}),
+	)
 
-export function deactivate(): Thenable<void> | undefined {
-	return client ? client.stop() : undefined
+	vscode.workspace.textDocuments.forEach(validatePaths)
 }

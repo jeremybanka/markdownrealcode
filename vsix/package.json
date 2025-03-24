@@ -14,7 +14,7 @@
 		"url": "https://github.com/jeremybanka/markdownrealcode"
 	},
 	"publisher": "jeremybanka",
-	"activationEvents": ["onLanguage:markdown"],
+	"activationEvents": ["onLanguage:markdownrealcode"],
 	"contributes": {
 		"languages": [
 			{
