@@ -2,7 +2,14 @@
 	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
 	"files": {
 		"ignoreUnknown": true,
-		"ignore": ["dist", "node_modules", ".turbo", ".varmint", "drizzle"]
+		"ignore": [
+			"dist",
+			"node_modules",
+			".turbo",
+			".varmint",
+			"drizzle",
+			"**/*.js"
+		]
 	},
 	"formatter": {
 		"enabled": true,

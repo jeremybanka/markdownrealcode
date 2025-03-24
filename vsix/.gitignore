@@ -5,8 +5,8 @@ node_modules
 out
 dist
 *.tgz
-bin/*
-!bin/.gitkeep
+*.js
+*.js.map
 
 # code coverage
 coverage

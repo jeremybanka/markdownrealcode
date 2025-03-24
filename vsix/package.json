@@ -6,7 +6,7 @@
 	"description": "Support for .src.md files with source code references",
 	"categories": ["Programming Languages"],
 
-	"main": "./dist/extension.js",
+	"main": "./extension.js",
 
 	"engines": { "vscode": "^1.98.0" },
 	"repository": {
