@@ -98,10 +98,11 @@ main = do
       let rootsList = roots config
       putStrLn $ "Searching in roots: " ++ show rootsList
       files <- concat <$> mapM (find always (fileName ~~? "*.src.md")) rootsList
+      putStrLn "Discovered files:"
+      mapM_ putStrLn files
+      putStrLn "Processing files..."
+      mapConcurrently_ (processFile config) files
       if optWatch opts
         then watchMode config rootsList
         else do
-          putStrLn "Discovered files:"
-          mapM_ putStrLn files
-          putStrLn "Processing files..."
-          mapConcurrently_ (processFile config) files
+          return ()

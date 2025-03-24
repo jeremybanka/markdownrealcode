@@ -16,7 +16,7 @@ main = hspec $ do
         compileSuperMarkdown config "." $
           unlines
             [ "See this example:",
-              "[>src:eg/auth.ts]",
+              "[>src=\"eg/auth.ts\"]",
               "It works great."
             ]
       result
