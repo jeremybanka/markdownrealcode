@@ -5,7 +5,7 @@
       "name": "vscx",
       "devDependencies": {
         "@biomejs/biome": "1.9.4",
-        "@types/node": "22.15.27",
+        "@types/node": "22.15.28",
         "@types/vscode": "1.100.0",
         "@vscode/vsce": "3.4.2",
         "typescript": "5.8.3",
@@ -106,7 +106,7 @@
 
     "@textlint/types": ["@textlint/types@14.7.1", "", { "dependencies": { "@textlint/ast-node-types": "^14.7.1" } }, "sha512-j10OEEHRAaqGMC6dK3+H1Eg3bksASGTmGDozsSepYs7qInY+lYBCe5m3JTrKkDnAX4nNy8ninnKzrYKcVkWahw=="],
 
-    "@types/node": ["@types/node@22.15.27", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-5fF+eu5mwihV2BeVtX5vijhdaZOfkQTATrePEaXTcKqI16LhJ7gi2/Vhd9OZM0UojcdmiOCVg5rrax+i1MdoQQ=="],
+    "@types/node": ["@types/node@22.15.28", "", { "dependencies": { "undici-types": "~6.21.0" } }, "sha512-I0okKVDmyKR281I0UIFV7EWAWRnR0gkuSKob5wVcByyyhr7Px/slhkQapcYX4u00ekzNWaS1gznKZnuzxwo4pw=="],
 
     "@types/normalize-package-data": ["@types/normalize-package-data@2.4.4", "", {}, "sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA=="],
 
