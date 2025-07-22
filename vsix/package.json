@@ -35,7 +35,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.1.2",
 		"@types/vscode": "1.102.0",
-		"@types/node": "24.0.15",
+		"@types/node": "24.1.0",
 		"@vscode/vsce": "3.6.0",
 		"typescript": "5.8.3",
 		"vscode-languageclient": "9.0.1"
