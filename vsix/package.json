@@ -33,7 +33,7 @@
 	},
 
 	"devDependencies": {
-		"@biomejs/biome": "2.3.11",
+		"@biomejs/biome": "2.3.12",
 		"@types/vscode": "1.108.1",
 		"@types/node": "25.0.10",
 		"@vscode/vsce": "3.7.1",
